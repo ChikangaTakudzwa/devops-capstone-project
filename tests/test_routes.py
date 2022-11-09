@@ -163,8 +163,15 @@ class TestAccountService(TestCase):
         updated_account = resp.get_json()
         self.assertEqual(updated_account["name"], "Takudzwa Known")
 
-    # def test_get_account_not_found(self):
-    #     """Not Read an Account that is not found"""
-    #     account = self._create_accounts(1)[0]
-    #     resp = self.client.put(f"{BASE_URL}/{account[""]}")
-    #     self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+    def test_delete_account(self):
+        """Delete an Account"""
+        account = self._create_accounts(1)[0]
+        # send a self.client.delete() request to the BASE_URL with an id of an account
+        resp = self.client.delete(f"{BASE_URL}/{account.id}")
+        # assert that the resp.status_code is status.HTTP_204_NO_CONTENT
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_method_not_allowed(self):
+        """Should not allow an illegal method call"""
+        resp = self.client.delete(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
