@@ -140,3 +140,11 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         resp = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_get_acc_list(self):
+        """Get Account list"""
+        self._create_accounts(5)
+        resp = self.client.get(f"{BASE_URL}")
+        self.assertEqual(resp.status_code , status.HTTP_200_OK)
+        data = resp.get_json()
+        self.assertEqual(len(data), 5)
