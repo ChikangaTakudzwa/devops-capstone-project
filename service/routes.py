@@ -62,6 +62,8 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
+
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -72,7 +74,7 @@ def list_accounts():
     accounts = Account.all()
     account_list = [account.serialize() for account in accounts]
     app.logger.info("Returning [%s] accounts", len(account_list))
-    return jsonify(account_list), status.HTTP_200_OK # noqa: E999
+    return jsonify(account_list), status.HTTP_200_OK
 
 ######################################################################
 # READ AN ACCOUNT
@@ -84,7 +86,7 @@ def list_accounts():
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def read_account(account_id):
     """Read account data"""
-    
+
     app.logger.info("Request to read an Account with id: %s", account_id)
 
     account = Account.find(account_id)
@@ -132,7 +134,7 @@ def delete_accounts(account_id):
     if account:
         account.delete()
     # return and empty body ("") with a return code of status.HTTP_204_NO_CONTENT
-    return  " ", status.HTTP_204_NO_CONTENT
+    return " ", status.HTTP_204_NO_CONTENT
 
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
