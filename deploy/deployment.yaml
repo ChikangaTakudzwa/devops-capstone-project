@@ -6,7 +6,7 @@ metadata:
     app: accounts
   name: accounts
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: accounts
@@ -18,7 +18,7 @@ spec:
         app: accounts
     spec:
       containers:
-      - image: ca.icr.io/chikanga/accounts:1
+      - image: docker.io/takudzwachikanga/accounts:1
         name: accounts
         env:
           - name: DATABASE_HOST
