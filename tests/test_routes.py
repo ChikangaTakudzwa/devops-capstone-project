@@ -24,9 +24,10 @@ HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
-
 
     @classmethod
     def setUpClass(cls):
@@ -148,7 +149,7 @@ class TestAccountService(TestCase):
         """Get Account list"""
         self._create_accounts(5)
         resp = self.client.get(f"{BASE_URL}")
-        self.assertEqual(resp.status_code ,status.HTTP_200_OK)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
