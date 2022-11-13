@@ -24,6 +24,8 @@ HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -139,7 +141,7 @@ class TestAccountService(TestCase):
 
     def test_get_account_not_found(self):
         """Not Read an Account that is not found"""
-        account = self._create_accounts(1)[0]
+        # account = self._create_accounts(1)[0]
         resp = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -147,7 +149,7 @@ class TestAccountService(TestCase):
         """Get Account list"""
         self._create_accounts(5)
         resp = self.client.get(f"{BASE_URL}")
-        self.assertEqual(resp.status_code , status.HTTP_200_OK)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
@@ -181,7 +183,6 @@ class TestAccountService(TestCase):
     def test_talisman(self):
         """ Must use Talisman """
         resp = self.client.get("/", environ_overrides=HTTPS_ENVIRON)
-        data = resp.get_json()
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         headers = {
             'X-Frame-Options': 'SAMEORIGIN',
